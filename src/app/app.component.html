@@ -1,4 +1,4 @@
-<title-box></title-box>
+<title-box (titleClick)="onTitleClick($event)"></title-box>
 <title-box title="STATIC TITLE"></title-box>
 <title-box [title]="'STATIC TITLE'"></title-box>
 <title-box [title]="title"></title-box>
@@ -10,6 +10,5 @@
 <navigation></navigation>
 
 <books></books>
-<div class="books"></div>
 
 <router-outlet></router-outlet>

@@ -1,6 +1,8 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { TitleBoxComponent } from './title-box.component';
+import { By } from '@angular/platform-browser';
+import { NO_ERRORS_SCHEMA } from '@angular/core';
 
 describe('TitleBoxComponent', () => {
   let component: TitleBoxComponent;
@@ -8,9 +10,8 @@ describe('TitleBoxComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ TitleBoxComponent ]
-    })
-    .compileComponents();
+      declarations: [TitleBoxComponent]
+    }).compileComponents();
   }));
 
   beforeEach(() => {
@@ -19,7 +20,11 @@ describe('TitleBoxComponent', () => {
     fixture.detectChanges();
   });
 
-  it('should create', () => {
-    expect(component).toBeTruthy();
+  it('should set title', () => {
+    component.title = 'TEST TITLE';
+    fixture.detectChanges();
+    expect(
+      fixture.debugElement.query(By.css('h3')).nativeElement.innerText
+    ).toEqual('TEST TITLE');
   });
 });
