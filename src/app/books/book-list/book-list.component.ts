@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Book } from '../book';
 import { BookDataService } from '../book-data.service';
 
@@ -10,9 +10,9 @@ import { BookDataService } from '../book-data.service';
 export class BookListComponent implements OnInit {
   books: Book[];
 
-  constructor(bookService: BookDataService) {
-    bookService.getBooks().subscribe(books => (this.books = books));
-  }
+  constructor(private bookService: BookDataService) {}
 
-  ngOnInit() {}
+  ngOnInit() {
+    this.bookService.getBooks().subscribe(books => (this.books = books));
+  }
 }
