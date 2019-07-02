@@ -18,13 +18,8 @@ import { TitleBoxComponent } from './title-box/title-box.component';
     MouseCursorComponent,
     TitleBoxComponent
   ],
-  imports: [
-    BrowserModule,
-    AppRoutingModule,
-    BooksModule,
-    AboutModule
-  ],
+  imports: [BrowserModule, AppRoutingModule, BooksModule, AboutModule],
   providers: [],
   bootstrap: [AppComponent]
 })
-export class AppModule { }
+export class AppModule {}

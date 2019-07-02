@@ -8,9 +8,8 @@ describe('MouseCursorComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ MouseCursorComponent ]
-    })
-    .compileComponents();
+      declarations: [MouseCursorComponent]
+    }).compileComponents();
   }));
 
   beforeEach(() => {
