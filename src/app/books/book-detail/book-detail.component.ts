@@ -3,6 +3,7 @@ import { ActivatedRoute } from '@angular/router';
 import { BookDataService } from '../book-data.service';
 import { Book } from '../book';
 import { Subscription } from 'rxjs';
+import { switchMap, tap } from 'rxjs/operators';
 
 @Component({
   selector: 'book-detail',
@@ -19,14 +20,25 @@ export class BookDetailComponent implements OnInit, OnDestroy {
   ) {}
 
   ngOnInit() {
-    const outerSubscription = this.activatedRoute.params.subscribe(
-      (params: { isbn: string }) => {
-        const innerSubscription = this.bookService
-          .getBookByIsbn(params.isbn)
-          .subscribe(book => (this.book = book));
-        this.subscriptions.add(innerSubscription);
-      }
-    );
+    const outerSubscription = this.activatedRoute.params
+      .pipe(
+        tap(x => console.log(x)),
+        switchMap((params: { isbn: string }) =>
+          this.bookService
+            .getBookByIsbn(params.isbn)
+            .pipe(tap(x => console.log(x)))
+        )
+      )
+      .subscribe(book => (this.book = book));
+
+    // const outerSubscription = this.activatedRoute.params.subscribe(
+    //   (params: { isbn: string }) => {
+    //     const innerSubscription = this.bookService
+    //       .getBookByIsbn(params.isbn)
+    //       .subscribe(book => (this.book = book));
+    //     this.subscriptions.add(innerSubscription);
+    //   }
+    // );
     this.subscriptions.add(outerSubscription);
   }
 
