@@ -8,10 +8,10 @@ import { BookDataService } from '../book-data.service';
   styleUrls: ['./book-list.component.scss']
 })
 export class BookListComponent implements OnInit {
-  readonly books: Book[];
+  books: Book[];
 
-  constructor(private bookService: BookDataService) {
-    this.books = bookService.getBooks();
+  constructor(bookService: BookDataService) {
+    bookService.getBooks().subscribe(books => (this.books = books));
   }
 
   ngOnInit() {}
