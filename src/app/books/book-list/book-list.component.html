@@ -1,3 +1,5 @@
 <div *ngFor="let book of books">
   {{ book.title }} <a [routerLink]="[book.isbn]">details</a>
 </div>
+
+<a [routerLink]="'new'">new</a>

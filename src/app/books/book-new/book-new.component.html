@@ -1,0 +1,12 @@
+<form [formGroup]="form" (ngSubmit)="onSubmit()">
+  <input type="text" formControlName="title" />
+  <input type="text" formControlName="isbn" />
+
+  <button type="submit" [disabled]="!form.valid">submit</button>
+</form>
+<div class="error-message" *ngIf="hasError('title', 'required')">
+  title is required
+</div>
+<div class="error-message" *ngIf="hasError('isbn', 'required')">
+  ISBN is required
+</div>
