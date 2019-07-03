@@ -1,0 +1,28 @@
+<!-- ng-container will not be added to DOM, only its content -->
+<ng-container *ngIf="book">
+  <form #form="ngForm">
+    <input
+      required
+      minlength="3"
+      type="text"
+      [(ngModel)]="book.title"
+      name="title"
+      #title="ngModel"
+    />
+  </form>
+
+  <!-- use json pipe to show ngForm and ngModel content: -->
+
+  <!-- <pre>
+#form.value:
+{{ form.value | json }}
+
+#title.value:
+{{ title.value | json }}
+
+#title.errors:
+{{ title.errors | json }}
+
+</pre
+  > -->
+</ng-container>

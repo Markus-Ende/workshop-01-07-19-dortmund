@@ -2,6 +2,8 @@
   <h4>{{ book.title }}</h4>
   <div>{{ book.author }}</div>
   <div>{{ book.abstract }}</div>
+
+  <a [routerLink]="['edit']">Edit</a>
 </div>
 
 <ng-template #loadingSpinner>
