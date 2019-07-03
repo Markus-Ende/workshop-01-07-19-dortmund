@@ -1,6 +1,6 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { Subscription } from 'rxjs';
+import { first } from 'rxjs/operators';
 import { BookDataService } from '../book-data.service';
 
 @Component({
@@ -8,9 +8,8 @@ import { BookDataService } from '../book-data.service';
   templateUrl: './book-new.component.html',
   styleUrls: ['./book-new.component.scss']
 })
-export class BookNewComponent implements OnInit, OnDestroy {
+export class BookNewComponent implements OnInit {
   form: FormGroup;
-  subscription = Subscription.EMPTY;
 
   constructor(
     private formBuilder: FormBuilder,
@@ -34,9 +33,9 @@ export class BookNewComponent implements OnInit, OnDestroy {
 
   onSubmit() {
     console.log('submit', this.form.value);
-  }
-
-  ngOnDestroy() {
-    this.subscription.unsubscribe();
+    this.booksService
+      .createBook(this.form.value)
+      .pipe(first())
+      .subscribe();
   }
 }

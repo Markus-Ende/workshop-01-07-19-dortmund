@@ -3,7 +3,7 @@ import { Book } from '../book';
 import { Subscription } from 'rxjs';
 import { ActivatedRoute } from '@angular/router';
 import { BookDataService } from '../book-data.service';
-import { tap, switchMap } from 'rxjs/operators';
+import { tap, switchMap, first } from 'rxjs/operators';
 
 @Component({
   selector: 'book-edit',
@@ -35,7 +35,11 @@ export class BookEditComponent implements OnInit, OnDestroy {
 
   save(formValue: { title: string; abstract: string; author: string }) {
     const book = this.book;
-    console.log('new book:', book);
+    console.log('edited book:', book);
+    this.bookService
+      .updateBook(book)
+      .pipe(first())
+      .subscribe();
   }
 
   ngOnDestroy(): void {
