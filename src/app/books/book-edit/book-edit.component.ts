@@ -33,6 +33,11 @@ export class BookEditComponent implements OnInit, OnDestroy {
     this.subscriptions.add(outerSubscription);
   }
 
+  save(formValue: { title: string; abstract: string; author: string }) {
+    const book = this.book;
+    console.log('new book:', book);
+  }
+
   ngOnDestroy(): void {
     this.subscriptions.unsubscribe();
   }

@@ -1,27 +1,73 @@
 <!-- ng-container will not be added to DOM, only its content -->
 <ng-container *ngIf="book">
-  <form #form="ngForm">
+  <form class="edit-form" #form="ngForm" (ngSubmit)="save(form.value)">
     <input
-      required
-      minlength="3"
       type="text"
       [(ngModel)]="book.title"
       name="title"
       #title="ngModel"
+      minlength="3"
+      required
     />
+    <div
+      class="error-message"
+      [hidden]="!title.errors?.required || title.pristine"
+    >
+      Title required!
+    </div>
+    <div
+      class="error-message"
+      [hidden]="!title.errors?.minlength || title.pristine"
+    >
+      Title must be at least 3 characters long!
+    </div>
+    <input
+      type="text"
+      [(ngModel)]="book.abstract"
+      name="abstract"
+      #abstract="ngModel"
+      minlength="5"
+      required
+    />
+    <div
+      class="error-message"
+      [hidden]="!abstract.errors?.required || abstract.pristine"
+    >
+      abstract required!
+    </div>
+    <div
+      class="error-message"
+      [hidden]="!abstract.errors?.minlength || abstract.pristine"
+    >
+      Abstract must be at least 5 characters long!
+    </div>
+    <input
+      type="text"
+      [(ngModel)]="book.author"
+      name="author"
+      #author="ngModel"
+      required
+    />
+    <div
+      class="error-message"
+      [hidden]="!author.errors?.required || author.pristine"
+    >
+      author required!
+    </div>
+
+    <button type="submit" [disabled]="!form.valid">submit</button>
   </form>
 
   <!-- use json pipe to show ngForm and ngModel content: -->
-
   <!-- <pre>
 #form.value:
-{{ form.value | json }}
+{{ form?.value | json }}
 
 #title.value:
-{{ title.value | json }}
+{{ title?.value | json }}
 
 #title.errors:
-{{ title.errors | json }}
+{{ title?.errors | json }}
 
 </pre
   > -->
