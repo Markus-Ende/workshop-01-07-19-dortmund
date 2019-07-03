@@ -9,7 +9,7 @@ import { LifecycleComponent } from './lifecycle/lifecycle.component';
 import { MouseCursorComponent } from './mouse-cursor/mouse-cursor.component';
 import { NavigationComponent } from './navigation/navigation.component';
 import { TitleBoxComponent } from './title-box/title-box.component';
-import { TooltipDirective } from './shared/tooltip.directive';
+import { SharedModule } from './shared/shared.module';
 
 @NgModule({
   declarations: [
@@ -18,10 +18,15 @@ import { TooltipDirective } from './shared/tooltip.directive';
     InfoBoxComponent,
     MouseCursorComponent,
     TitleBoxComponent,
-    LifecycleComponent,
-    TooltipDirective
+    LifecycleComponent
   ],
-  imports: [BrowserModule, AppRoutingModule, AboutModule, HttpClientModule],
+  imports: [
+    BrowserModule,
+    SharedModule,
+    AppRoutingModule,
+    AboutModule,
+    HttpClientModule
+  ],
   providers: [],
   bootstrap: [AppComponent]
 })

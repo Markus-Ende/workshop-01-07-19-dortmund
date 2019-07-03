@@ -1,4 +1,7 @@
-<div *ngFor="let book of books$ | async">
+<div
+  [tooltip]="'Tooltip for ' + book.title"
+  *ngFor="let book of books$ | async"
+>
   {{ book.title }} <a [routerLink]="[book.isbn]">details</a>
 </div>
 

@@ -20,7 +20,7 @@ export class TooltipDirective {
 
   @Input()
   @HostBinding('style.color')
-  tooltipColor = 'red';
+  tooltipColor = 'black';
 
   constructor(private elementRef: ElementRef, private renderer: Renderer2) {}
 
