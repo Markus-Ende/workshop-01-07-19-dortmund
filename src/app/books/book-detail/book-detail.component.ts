@@ -2,7 +2,7 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { BookDataService } from '../book-data.service';
 import { Book } from '../book';
-import { Subscription } from 'rxjs';
+import { Subscription, Observable } from 'rxjs';
 import { switchMap, tap } from 'rxjs/operators';
 
 @Component({
@@ -10,9 +10,8 @@ import { switchMap, tap } from 'rxjs/operators';
   templateUrl: './book-detail.component.html',
   styleUrls: ['./book-detail.component.scss']
 })
-export class BookDetailComponent implements OnInit, OnDestroy {
-  book: Book;
-  private subscriptions = new Subscription();
+export class BookDetailComponent implements OnInit {
+  book$: Observable<Book>;
 
   constructor(
     private activatedRoute: ActivatedRoute,
@@ -20,16 +19,14 @@ export class BookDetailComponent implements OnInit, OnDestroy {
   ) {}
 
   ngOnInit() {
-    const outerSubscription = this.activatedRoute.params
-      .pipe(
-        tap(x => console.log(x)),
-        switchMap((params: { isbn: string }) =>
-          this.bookService
-            .getBookByIsbn(params.isbn)
-            .pipe(tap(x => console.log(x)))
-        )
+    this.book$ = this.activatedRoute.params.pipe(
+      tap(x => console.log(x)),
+      switchMap((params: { isbn: string }) =>
+        this.bookService
+          .getBookByIsbn(params.isbn)
+          .pipe(tap(x => console.log(x)))
       )
-      .subscribe(book => (this.book = book));
+    );
 
     // const outerSubscription = this.activatedRoute.params.subscribe(
     //   (params: { isbn: string }) => {
@@ -39,10 +36,5 @@ export class BookDetailComponent implements OnInit, OnDestroy {
     //     this.subscriptions.add(innerSubscription);
     //   }
     // );
-    this.subscriptions.add(outerSubscription);
-  }
-
-  ngOnDestroy(): void {
-    this.subscriptions.unsubscribe();
   }
 }

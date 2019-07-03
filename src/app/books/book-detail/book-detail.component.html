@@ -1,4 +1,4 @@
-<div *ngIf="book; else loadingSpinner">
+<div *ngIf="book$ | async as book; else loadingSpinner">
   <h4>{{ book.title }}</h4>
   <div>{{ book.author }}</div>
   <div>{{ book.abstract }}</div>

@@ -7,6 +7,7 @@ import {
   UrlTree
 } from '@angular/router';
 import { Observable } from 'rxjs';
+import { first, map } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
@@ -23,7 +24,9 @@ export class ConfirmCandeactivateGuard
     | UrlTree
     | Observable<boolean | import('@angular/router').UrlTree>
     | Promise<boolean | import('@angular/router').UrlTree> {
-    const bookName = component.book.title;
-    return confirm(bookName + ' sicher?');
+    return component.book$.pipe(
+      first(),
+      map(book => confirm(book.title + ' sicher?'))
+    );
   }
 }

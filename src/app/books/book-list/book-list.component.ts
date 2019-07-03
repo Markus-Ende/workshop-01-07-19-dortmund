@@ -6,7 +6,8 @@ import {
 } from '@angular/core';
 import { Book } from '../book';
 import { BookDataService } from '../book-data.service';
-import { Subscription } from 'rxjs';
+import { Subscription, Observable, of } from 'rxjs';
+import { tap, catchError } from 'rxjs/operators';
 
 @Component({
   selector: 'book-list',
@@ -14,20 +15,18 @@ import { Subscription } from 'rxjs';
   styleUrls: ['./book-list.component.scss'],
   changeDetection: ChangeDetectionStrategy.Default
 })
-export class BookListComponent implements OnInit, OnDestroy {
-  books: Book[];
-
-  subscriptions: Subscription = new Subscription();
+export class BookListComponent implements OnInit {
+  books$: Observable<Book[]>;
 
   constructor(private bookService: BookDataService) {}
 
   ngOnInit() {
-    this.subscriptions.add(
-      this.bookService.getBooks().subscribe(books => (this.books = books))
+    this.books$ = this.bookService.getBooks().pipe(
+      tap(console.log),
+      catchError(err => {
+        console.error(err);
+        return of([]);
+      })
     );
-  }
-
-  ngOnDestroy() {
-    this.subscriptions.unsubscribe();
   }
 }

@@ -1,4 +1,4 @@
-<div *ngFor="let book of books">
+<div *ngFor="let book of books$ | async">
   {{ book.title }} <a [routerLink]="[book.isbn]">details</a>
 </div>
 
