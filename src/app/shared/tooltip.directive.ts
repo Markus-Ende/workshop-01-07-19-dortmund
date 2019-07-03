@@ -3,28 +3,42 @@ import {
   Input,
   HostListener,
   ElementRef,
-  HostBinding
+  HostBinding,
+  Renderer2
 } from '@angular/core';
 
 @Directive({
   selector: '[tooltip]'
 })
 export class TooltipDirective {
-  private tooltipElement = document.createElement('div');
+  // private tooltipElement = document.createElement('div');
+  private tooltipElement = this.renderer.createElement('div');
 
   @Input() set tooltip(newVal: string) {
     this.tooltipElement.innerText = newVal;
   }
 
-  constructor(private elementRef: ElementRef) {}
+  @Input()
+  @HostBinding('style.color')
+  tooltipColor = 'red';
+
+  constructor(private elementRef: ElementRef, private renderer: Renderer2) {}
 
   @HostListener('mouseenter')
   onmouseEnter() {
-    this.elementRef.nativeElement.appendChild(this.tooltipElement);
+    this.renderer.appendChild(
+      this.elementRef.nativeElement,
+      this.tooltipElement
+    );
+    // this.elementRef.nativeElement.appendChild(this.tooltipElement);
   }
 
   @HostListener('mouseleave')
   onmouseLeave() {
-    this.elementRef.nativeElement.removeChild(this.tooltipElement);
+    this.renderer.removeChild(
+      this.elementRef.nativeElement,
+      this.tooltipElement
+    );
+    //this.elementRef.nativeElement.removeChild(this.tooltipElement);
   }
 }
