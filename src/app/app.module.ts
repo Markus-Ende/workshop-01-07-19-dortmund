@@ -9,6 +9,7 @@ import { LifecycleComponent } from './lifecycle/lifecycle.component';
 import { MouseCursorComponent } from './mouse-cursor/mouse-cursor.component';
 import { NavigationComponent } from './navigation/navigation.component';
 import { TitleBoxComponent } from './title-box/title-box.component';
+import { TooltipDirective } from './shared/tooltip.directive';
 
 @NgModule({
   declarations: [
@@ -17,7 +18,8 @@ import { TitleBoxComponent } from './title-box/title-box.component';
     InfoBoxComponent,
     MouseCursorComponent,
     TitleBoxComponent,
-    LifecycleComponent
+    LifecycleComponent,
+    TooltipDirective
   ],
   imports: [BrowserModule, AppRoutingModule, AboutModule, HttpClientModule],
   providers: [],
